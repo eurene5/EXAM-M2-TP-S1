@@ -1,11 +1,13 @@
+<<<<<<< HEAD
+=======
 # EXAM-M2-TP-S1
 
 Thème : Éditeur de Texte Augmenté par l'IA pour le Malagasy
 
+>>>>>>> af5d6064e591f265f871cd6b1768556abd19b867
 # Éditeur de Texte Augmenté par l'IA pour le Malagasy
-
-> Projet TP Machine Learning — Institut Supérieur Polytechnique de Madagascar  
-> Semestre 1
+> **Projet TP Machine Learning** — Institut Supérieur Polytechnique de Madagascar (ISPM)  
+> Master 2 — Semestre 1
 
 ---
 
@@ -13,10 +15,11 @@ Thème : Éditeur de Texte Augmenté par l'IA pour le Malagasy
 
 | Nom                       | Rôle                     |
 | ------------------------- | ------------------------ |
-| Johaninho                 | Chef de projet / Backend |
+| Johaninho                 | Chef de projet / Backend Proxy / Bot |
+| Léonel                    | Backend / models         |
 | Dilan                     | Frontend                 |
 | Koloina                   | UI/UX                    |
-| Zo Bryan, Léonel, Manitra | NLP / Data               |
+| Zo Bryan, Manitra Koloina | NLP / | Data             |
 | Johaninho, Dilan, Léonel  | DevOps / Intégration     |
 
 ---
@@ -27,27 +30,27 @@ Ce projet est un éditeur de texte web intelligent conçu pour assister les réd
 
 ---
 
-## Stack technique
+## 🤖 Fonctionnalités IA (Description)
 
-- **Frontend** : React + Quill.js (ou TipTap) + TailwindCSS
-- **Backend** : Python + FastAPI
-- **Données** : JSON (dictionnaire, entités, sentiments) + `.pkl` (modèle N-gram sérialisé)
-- **Déploiement** : Frontend → Vercel / Backend → Railway ou Render
+### 1. Correction & Validation
+* **Correcteur Orthographique** : Analyse en temps réel via un dictionnaire hybride (Scraping + Levenshtein).
+* **Vérification Phonotactique** : Détection automatique des combinaisons de lettres interdites en Malagasy (`nb`, `mk`, `sz`, etc.) via REGEX.
+
+### 2. Analyse Linguistique
+* **Lemmatisation intelligente** : Algorithme de réduction à la racine basé sur les préfixes (`mi-`, `man-`) et suffixes malagasy, gérant les mutations consonantiques.
+* **Analyse de Sentiment** : Détection de la tonalité du texte (positif/négatif) via un lexique de mots-clés malagasy.
+
+### 3. Assistance à la Rédaction
+* **Autocomplétion (N-gram)** : Prédiction du mot suivant basée sur un modèle statistique de Trigrammes entraîné sur Wikipedia MG et la Bible.
+* **Reconnaissance d'Entités (NER)** : Identification des lieux, institutions et personnalités malagasy.
+* **Synthèse Vocale (TTS)** : Lecture à haute voix du texte pour faciliter la relecture.
 
 ---
 
-## Structure du projet
-
-```
-malagasy-editor/
-├── backend/
-├── frontend/
-├── data/
-├── scripts/
-├── README.md
-├── .env.example
-└── docker-compose.yml (si dockeriser)
-```
+## 🛠️ Stack Technique Résumée
+* **Backend** : Python 3.10+, FastAPI, RapidFuzz, NLTK.
+* **Frontend** : React.js, Quill.js, TailwindCSS.
+* **Données** : Dictionnaire JSON, Corpus TXT, Modèles sérialisés (.pkl).
 
 ---
 
@@ -57,10 +60,9 @@ Contient toute la logique serveur de l'application. C'est ici que résident les 
 
 ```
 backend/
-├── app/
-│   ├── routes/         ← Définition des endpoints REST (ex: /check, /autocomplete, /translate)
+├── app/         
 │   └── modules/        ← Un fichier Python par fonctionnalité IA (voir détail ci-dessous)
-├── main.py             ← Point d'entrée FastAPI, déclaration de l'app et des routes
+├── main.py             ← Point d'entrée FastAPI, déclaration de l'app et des routes, Définition des endpoints REST (ex: /autocomplete)
 └── requirements.txt    ← Dépendances Python à installer
 ```
 
