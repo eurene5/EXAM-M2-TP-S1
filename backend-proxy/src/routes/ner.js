@@ -6,7 +6,7 @@ const { body } = require("express-validator");
 const { handleValidation } = require("../middleware/validate");
 const { cache } = require("../middleware/cache");
 
-const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-3.1-flash-lite";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 // POST /api/ner

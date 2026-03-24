@@ -56,10 +56,12 @@ app.use("/api/ner",        require("./routes/ner"));
 app.use("/api/sentiment",  require("./routes/sentiment"));
 app.use("/api/chat",       require("./routes/chat"));
 
-// ─── Routes déléguées au backend Python (à activer quand Python est prêt) ─
+// ─── Routes déléguées au backend Python distant ─────────────────
+app.use("/autocomplete", require("./routes/autocomplete"));
+
+// ─── Routes Python supplémentaires (à activer quand disponibles) ─
 // app.use("/api/spellcheck",   require("./routes/spellcheck"));
 // app.use("/api/lemmatize",    require("./routes/lemmatize"));
-// app.use("/api/autocomplete", require("./routes/autocomplete"));
 
 // ─── Démarrage ────────────────────────────────────────────────
 app.listen(PORT, () => {

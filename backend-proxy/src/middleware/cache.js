@@ -43,10 +43,13 @@ const cache = (keyFn, ttl = DEFAULT_TTL) => async (req, res, next) => {
   }
 
   // Intercepter res.json pour stocker la réponse dans Redis
+  // Ne mettre en cache que les réponses 2xx — jamais les erreurs
   const originalJson = res.json.bind(res);
   res.json = (data) => {
-    redis.set(key, JSON.stringify(data), "EX", ttl).catch(() => {});
-    res.setHeader("X-Cache", "MISS");
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      redis.set(key, JSON.stringify(data), "EX", ttl).catch(() => {});
+      res.setHeader("X-Cache", "MISS");
+    }
     return originalJson(data);
   };
 
