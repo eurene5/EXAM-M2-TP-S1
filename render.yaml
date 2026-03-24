@@ -40,7 +40,7 @@ services:
 
   # ─────────────────────────────────────────────────────────────────
   # Frontend Next.js (port 3000)
-  # NEXT_PUBLIC_PROXY_URL est injecté comme Docker build-arg
+  # NEXT_PUBLIC_PROXY_URL doit être un Docker build ARG (baked at build time)
   # ─────────────────────────────────────────────────────────────────
   - type: web
     name: malagasy-frontend
@@ -48,9 +48,9 @@ services:
     dockerfilePath: ./frontend/Dockerfile
     dockerContext: ./frontend
     plan: free
+    # Build args injectés dans le Dockerfile au moment du `docker build`
+    dockerBuildArgs:
+      - NEXT_PUBLIC_PROXY_URL=https://malagasy-proxy.onrender.com
     envVars:
       - key: NODE_ENV
         value: production
-      # Utilisé comme ARG dans le Dockerfile Next.js au moment du build
-      - key: NEXT_PUBLIC_PROXY_URL
-        value: https://malagasy-proxy.onrender.com
