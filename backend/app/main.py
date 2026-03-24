@@ -2,8 +2,13 @@ from fastapi import FastAPI
 from app.modules.lemmatizer import Lemmatizer
 from app.modules.spell_checker import SpellChecker
 from app.modules.ngram_model import NGramModel
+
+# Initialisation des modules
 app = FastAPI(title="Malagasy Editor IA API")
 lemmatizer = Lemmatizer()
+spell_module = SpellChecker(lemmatizer=lemmatizer)
+ngram_module = NGramModel()
+
 
 @app.get("/")
 def read_root():
@@ -17,10 +22,6 @@ def lemmatize_word(word: str):
         "root": root,
         "is_root": word.lower() == root.lower()
     }
-
-# Initialisation des modules
-lem_module = Lemmatizer()
-spell_module = SpellChecker(lemmatizer=lem_module)
 
 @app.get("/check")
 async def check_word(word: str):
@@ -36,8 +37,6 @@ async def check_word(word: str):
         "suggestions": suggestions,
         "phonotactic_error": not spell_module.check_phonotactics(word)
     }
-
-ngram_module = NGramModel()
 
 @app.get("/autocomplete")
 async def autocomplete(text: str):
