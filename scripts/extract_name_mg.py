@@ -2,7 +2,7 @@ import json
 
 # Configuration des fichiers
 input_txt = '../data/anarana_malagasy.txt'
-output_json = '../data/entities_mg.json'
+output_json = '../data/anarana_mg.json'
 
 def generate_names_json(source, destination):
     try:
